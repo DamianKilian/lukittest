@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @ORM\Table(name="category")
  * @UniqueEntity(fields={"slug"})
+ * @ORM\HasLifecycleCallbacks()
  */
 class Category
 {

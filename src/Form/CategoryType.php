@@ -15,7 +15,7 @@ class CategoryType extends AbstractType
         $builder
             ->add('title')
             ->add('slug')
-            ->add('updatedAt')
+            // ->add('updatedAt')
             ->add('parent', EntityType::class, array(
                     'class'   => Category::class,
                     'choice_label' => 'title',
