@@ -58,9 +58,15 @@ class Category
      */
     private $parent;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Product", mappedBy="categories")
+     */
+    private $products;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     /**
@@ -127,5 +133,25 @@ class Category
     {
         $this->parent = $parent;
 
+    }
+
+    /**
+     * Get the value of products
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * Set the value of products
+     *
+     * @return  self
+     */
+    public function setProducts($products)
+    {
+        $this->products = $products;
+
+        return $this;
     }
 }

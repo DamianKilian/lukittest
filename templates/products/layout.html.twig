@@ -88,16 +88,6 @@
 
 
 {% block body %}
-    {{dump(mainCategories)}}
-    {% for cat in mainCategories %}
-        {{dump(cat.children)}}
-        {% for ch in cat.children %}
-            {{dump(ch.slug)}}
-
-
-        {% endfor %}
-
-    {% endfor %}
 
     <ul class="main-navigation">
         {% for cat in mainCategories %}
@@ -122,58 +112,6 @@
             </li>
         {% endfor %}
     </ul>
-    {# <ul class="main-navigation">
-        <li>
-            <a href="#">Home</a>
-        </li>
-        <li>
-            <a href="#">Front End Design</a>
-            <ul>
-                <li>
-                    <a href="#">HTML</a>
-                </li>
-                <li>
-                    <a href="#">CSS</a>
-                    <ul>
-                        <li><a href="#">Resets</a></li>
-                        <li><a href="#">Grids</a></li>
-                        <li><a href="#">Frameworks</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">JavaScript</a>
-                    <ul>
-                        <li><a href="#">Ajax</a></li>
-                        <li><a href="#">jQuery</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">WordPress Development</a>
-            <ul>
-                <li>
-                    <a href="#">Themes</a>
-                </li>
-                <li>
-                    <a href="#">Plugins</a>
-                </li>
-                <li>
-                    <a href="#">Custom Post Types</a>
-                    <ul>
-                        <li><a href="#">Portfolios</a></li>
-                        <li><a href="#">Testimonials</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Options</a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">About Us</a>
-        </li>
-    </ul> #}
 
     {% block page_contents %}{% endblock %}
 {% endblock %}
