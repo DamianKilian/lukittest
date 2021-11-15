@@ -1,0 +1,13 @@
+
+{% extends 'products/layout.html.twig' %}
+{% block page_contents %}
+    <h1> category_products.html</h1>
+        {% for prod in categoryProducts %}
+            <div>
+                <div>{{prod.name}}</div>
+                <div><img src="/uploads/photos/{{prod.photo}}"></div>
+                <div>{{prod.description}}</div>
+                <div>{{prod.price}}</div>
+            </div>
+        {% endfor %}
+{% endblock %}

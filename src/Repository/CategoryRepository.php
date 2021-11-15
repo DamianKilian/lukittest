@@ -26,4 +26,31 @@ class CategoryRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function categoryTreeIds($slug)
+    {
+        $cat = $this->createQueryBuilder('c')
+            ->addSelect('ch')
+            ->leftJoin('c.children', 'ch')
+            ->andWhere('c.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+        return $this->getChildrenIds([$cat]);
+    }
+
+    public function getChildrenIds($children, &$childrenIds = [])
+    {
+        foreach ($children as $child) {
+            $childrenIds[] = $child->getId();
+            $childChildren = $child->getChildren();
+            if($childChildren->count()){
+                $this->getChildrenIds($childChildren, $childrenIds);
+            }
+        }
+        return $childrenIds;
+    }
+
+
 }

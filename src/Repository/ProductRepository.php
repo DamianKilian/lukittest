@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -18,6 +19,25 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
+
+    public function categoryProducts($slug)
+    {
+        $categoryRepository = $this
+            ->getEntityManager()
+            ->getRepository(Category::class)
+        ;
+        $categoryTreeIds = $categoryRepository->categoryTreeIds($slug);
+        $categoryProducts = $this->createQueryBuilder('p')
+            ->innerJoin('p.categories','c')
+            ->where("c.id IN(:categoryTreeIds)")
+            ->setParameter('categoryTreeIds', array_values($categoryTreeIds))
+            ->getQuery()
+            ->getResult()
+        ;
+        return $categoryProducts;
+    }
+
+
 
     // /**
     //  * @return Product[] Returns an array of Product objects
