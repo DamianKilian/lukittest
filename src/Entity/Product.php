@@ -148,4 +148,11 @@ class Product
 
         return $this;
     }
+
+    public function addCategory(Category $category): void
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
+    }
 }
