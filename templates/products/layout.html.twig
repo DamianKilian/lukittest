@@ -2,35 +2,47 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hc-offcanvas-nav@6.1.4/dist/hc-offcanvas-nav.css">
     <link rel="stylesheet" href="/css/app.css">
 {% endblock %}
-
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/hc-offcanvas-nav@6.1.4/dist/hc-offcanvas-nav.min.js"></script>
+    <script src="/js/app.js"></script>
+{% endblock %}
 
 {% block body %}
-
-    <ul class="main-navigation">
-        {% for cat in mainCategories %}
-            <li>
-                <a href="/{{cat.slug}}">{{cat.title}}</a>
-                {% if cat.children %}
-                <ul>
-                    {% for ch in cat.children %}
-                    <li>
-                        <a href="/{{ch.slug}}">{{ch.title}}</a>
-                        {% if ch.children %}
+    <div id="toggleMenu">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <nav id="main-nav">
+        <ul class="main-navigation">
+            {% for cat in mainCategories %}
+                <li>
+                    <a href="{{ path('category_products', {slug: cat.slug}) }}">{{cat.title}}</a>
+                    {% if cat.children %}
                         <ul>
-                            {% for ch2 in ch.children %}
-                            <li><a href="/{{ch2.slug}}">{{ch2.title}}</a></li>
+                            {% for ch in cat.children %}
+                                <li>
+                                    <a href="{{ path('category_products', {slug: ch.slug}) }}">{{ch.title}}</a>
+                                    {% if ch.children %}
+                                        <ul>
+                                            {% for ch2 in ch.children %}
+                                                <li>
+                                                    <a href="{{ path('category_products', {slug: ch2.slug}) }}">{{ch2.title}}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </li>
                             {% endfor %}
                         </ul>
-                        {% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
     {% block page_contents %}{% endblock %}
 {% endblock %}

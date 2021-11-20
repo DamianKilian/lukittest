@@ -1,16 +1,12 @@
 
 {% extends 'products/layout.html.twig' %}
 {% block page_contents %}
-    <h1> category_products.html</h1>
-    <div>
-        {% for prod in categoryProducts %}
-            <div style="float:left">
-                <div>{{prod.name}}</div>
-                <div><img src="/uploads/photos/{{prod.photo}}"></div>
-                <div>{{prod.description}}</div>
-                <div>{{prod.price}}</div>
-            </div>
-        {% endfor %}
+    <select name="sortProductsBy" id="sortProductsBy">
+        <option value="nameAsc">Name asc</option>
+        <option {% if 'nameDesc' == sortProductsBy %}selected="selected"{% endif %} value="nameDesc">Name dasc</option>
+        <option {% if 'price' == sortProductsBy %}selected="selected"{% endif %} value="price">Price</option>
+    </select>
+    <div id='products'>
+        {{ include('products/products.html.twig') }}
     </div>
-
 {% endblock %}

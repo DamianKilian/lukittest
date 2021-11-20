@@ -1,0 +1,10 @@
+
+
+{% for prod in categoryProducts %}
+<div class="product">
+    <div>{{prod.name}}</div>
+    <div><img src="/uploads/photos/{{prod.photo}}"></div>
+    <div>{{prod.description}}</div>
+    <div>{{prod.price}}</div>
+</div>
+{% endfor %}

@@ -20,21 +20,27 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function categoryProducts($slug)
+    public function categoryProducts($slug, $sortProductsBy = null)
     {
         $categoryRepository = $this
             ->getEntityManager()
             ->getRepository(Category::class)
         ;
         $categoryTreeIds = $categoryRepository->categoryTreeIds($slug);
-        $categoryProducts = $this->createQueryBuilder('p')
+        $qb = $this->createQueryBuilder('p')
             ->innerJoin('p.categories','c')
             ->where("c.id IN(:categoryTreeIds)")
             ->setParameter('categoryTreeIds', array_values($categoryTreeIds))
-            ->getQuery()
-            ->getResult()
         ;
-        return $categoryProducts;
+        $order = 'ASC';
+        $sort = 'p.name';
+        if('nameDesc' === $sortProductsBy){
+            $order = 'DESC';
+        }elseif('price' === $sortProductsBy){
+            $sort = 'p.price';
+        }
+        $qb->orderBy($sort, $order);
+        return $qb->getQuery()->getResult();
     }
 
 
